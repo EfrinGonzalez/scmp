@@ -1,17 +1,33 @@
 package engine.rules.scmp.models;
 
 
+import engine.rules.scmp.enums.RuleAction;
+
 import java.util.ArrayList;
+import java.util.List;
 
 public class Rule {
     private int id;
+    private String name;
     private String description;
-    private ArrayList<Action> actions;
+    private List<RuleAction> actions;
 
-    public Rule(int id, String description, ArrayList<Action> actions) {
+    public Rule() {
+    }
+
+    public Rule(int id, String name, String description, List<RuleAction> actions) {
         this.id = id;
+        this.name = name;
         this.description = description;
         this.actions = actions;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getId() {
@@ -30,11 +46,21 @@ public class Rule {
         this.description = description;
     }
 
-    public ArrayList<Action> getActions() {
+    public List<RuleAction> getActions() {
         return actions;
     }
 
-    public void setActions(ArrayList<Action> actions) {
+    public void setActions(List<RuleAction> actions) {
         this.actions = actions;
+    }
+
+    @Override
+    public String toString() {
+        return "Rule{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", actions=" + actions +
+                '}';
     }
 }

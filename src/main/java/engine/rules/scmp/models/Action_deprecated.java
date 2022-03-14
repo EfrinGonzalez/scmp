@@ -3,12 +3,12 @@ package engine.rules.scmp.models;
 import engine.rules.scmp.enums.RuleAction;
 
 
-public class Action {
+public class Action_deprecated {
     private int id;
     private String description;
     private RuleAction action;
 
-    public Action(int id, String description, RuleAction action) {
+    public Action_deprecated(int id, String description, RuleAction action) {
         this.id = id;
         this.description = description;
         this.action = action;
