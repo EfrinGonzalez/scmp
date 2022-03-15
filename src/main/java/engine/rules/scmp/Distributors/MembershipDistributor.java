@@ -7,16 +7,17 @@ import engine.rules.scmp.models.Order;
 public class MembershipDistributor implements IMembershipDistributor, IEmailNotificator {
     @Override
     public boolean activateMembership(Order order) {
-        return false;
+        return true;
     }
 
     @Override
     public boolean upgradeMembership(Order order) {
-        return false;
+        return true;
     }
 
     @Override
     public boolean notifyOwnerViaEmail(String notificationTitle, String NotificationDescription) {
-        return false;
+        System.out.println(notificationTitle + ":" +NotificationDescription);
+        return true;
     }
 }

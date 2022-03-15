@@ -6,6 +6,7 @@ import engine.rules.scmp.models.Order;
 public class VideoDistributor implements IVideoDistributor {
     @Override
     public boolean addFirstAidVideoToPackingSlip(Order order) {
-        return false;
+        System.out.println("Video Learning to Ski is added to package slip");
+        return true;
     }
 }

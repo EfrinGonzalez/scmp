@@ -7,6 +7,9 @@ public class Order {
     private int id;
     private List<Product> products;
 
+    public Order() {
+    }
+
     public Order(int id, List<Product> products) {
         this.id = id;
         this.products = products;

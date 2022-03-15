@@ -8,16 +8,21 @@ public class BookDistributor implements IPhysicalDistributor, IBookDistributor {
 
     @Override
     public boolean duplicatePackingSlipForRoyalDepartment(Order order) {
-        return false;
+        System.out.println("Duplicate Packing slip for royalty..");
+        return true;
     }
 
     @Override
     public boolean packingSlipForShipping(Order order) {
-        return false;
+
+        System.out.println("Packing slip for shipping has been created...");
+        return true;
     }
 
     @Override
     public boolean giveCommissionPaymentToAgent() {
-        return false;
+
+        System.out.println("Commission payment is sent to agent...");
+        return true;
     }
 }
