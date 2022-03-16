@@ -1,17 +1,14 @@
-import com.sun.org.apache.xpath.internal.operations.Or;
-import engine.rules.scmp.Distributors.BookDistributor;
-import engine.rules.scmp.Distributors.MembershipDistributor;
-import engine.rules.scmp.Distributors.PhysicalDistributor;
-import engine.rules.scmp.Distributors.VideoDistributor;
+import engine.rules.scmp.Services.BookService;
+import engine.rules.scmp.Services.MembershipService;
+import engine.rules.scmp.Services.VideoService;
+import engine.rules.scmp.implementations.*;
+import engine.rules.scmp.interfaces.*;
+import engine.rules.scmp.Services.PhysicalProductService;
 import engine.rules.scmp.factory.PaymentFactory;
 import engine.rules.scmp.enums.ProductType;
-import engine.rules.scmp.enums.RuleAction;
 import engine.rules.scmp.models.*;
 import org.junit.BeforeClass;
 import org.junit.Test;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -21,6 +18,10 @@ public class PaymentFactoryTest {
     static Payment paymentMembershipActivation;
     static Payment paymentMembershipUpdate;
     static Payment paymentVideoLearningToSki;
+
+    private IPhysicalDistributor physicalDistributor;
+    private IBookDistributor bookDistributor;
+
     @BeforeClass
     public static void init() {
         paymentPhysical = new Payment(1, ProductType.PHYSICAL_PRODUCT, new Order());
@@ -28,79 +29,88 @@ public class PaymentFactoryTest {
         paymentMembershipActivation = new Payment(3, ProductType.MEMBERSHIP_ACTIVATION, new Order());
         paymentMembershipUpdate = new Payment(4, ProductType.MEMBERSHIP_ACTIVATION, new Order());
         paymentVideoLearningToSki = new Payment(5, ProductType.VIDEO_LEARNING_TO_SKI, new Order());
-    }
 
+
+
+    }
 
     @Test
     public void testCreationOfPayment_PhysicalProduct() {
-        boolean packingSentForShipping = false;
-        boolean commisionPaid = false;
+        IPhysicalDistributor physicalDistributor = new PhysicalDistributorImpl();
         Object paymentFactory = PaymentFactory.PaymentFactoryDistribution(paymentPhysical);
-        if (paymentFactory instanceof PhysicalDistributor) {
-            packingSentForShipping = ((PhysicalDistributor) paymentFactory).packingSlipForShipping(paymentPhysical.getOrder());
-            commisionPaid = ((PhysicalDistributor) paymentFactory).giveCommissionPaymentToAgent();
-        }
-        assertEquals(true, packingSentForShipping);
-        assertEquals(true, commisionPaid);
+         boolean result = false;
+       /* Object paymentFactory = PaymentFactory.PaymentFactoryDistribution(paymentPhysical);*/
+        if (paymentFactory instanceof PhysicalDistributorImpl) {
+            PhysicalProductService processor = new PhysicalProductService(physicalDistributor);
+            result = processor.executeRules(paymentPhysical.getOrder());
+
+             }
+        assertTrue(result);
 
     }
-
 
     @Test
     public void testCreationOfPayment_Book() {
-        boolean packingSentForShipping = false;
-        boolean duplicatePackingforRoyalty = false;
-        boolean commisionPaid = false;
+         IBookDistributor bookDistributor = new BookDistributorImpl();
+        IPhysicalDistributor physicalDistributor = new PhysicalDistributorImpl();
+
         Object paymentFactory = PaymentFactory.PaymentFactoryDistribution(paymentBook);
-        if (paymentFactory instanceof BookDistributor) {
-            packingSentForShipping = ((BookDistributor) paymentFactory).packingSlipForShipping(paymentBook.getOrder());
-            duplicatePackingforRoyalty = ((BookDistributor) paymentFactory).duplicatePackingSlipForRoyalDepartment(paymentBook.getOrder());
-            commisionPaid = ((BookDistributor) paymentFactory).giveCommissionPaymentToAgent();
+        boolean result = false;
+        if (paymentFactory instanceof BookDistributorImpl) {
+            BookService processor = new BookService(physicalDistributor, bookDistributor);
+           result =  processor.executeRules(new Order());
         }
-        assertEquals(true, packingSentForShipping);
-        assertEquals(true, duplicatePackingforRoyalty);
-        assertEquals(true, commisionPaid);
+
+        assertTrue(result);
 
     }
+
 
     @Test
     public void testPayment_MembershipActivation() {
-        boolean activationApplied = false;
-        boolean notificationEmailSent = false;
-
+        IMembershipDistributor membershipDistributor = new MembershipDistributorImpl();
+        IEmailNotificator notificator = new EmailNotificatorImpl();
+        boolean result = false;
         Object paymentFactory = PaymentFactory.PaymentFactoryDistribution(paymentMembershipActivation);
-        if (paymentFactory instanceof MembershipDistributor) {
-            activationApplied = ((MembershipDistributor) paymentFactory).activateMembership(paymentMembershipActivation.getOrder());
-            notificationEmailSent = ((MembershipDistributor) paymentFactory).notifyOwnerViaEmail("Membership Activation", "Your membership is active from now on...");
-             }
-        assertEquals(true, activationApplied);
-        assertEquals(true, notificationEmailSent);
+        if (paymentFactory instanceof MembershipDistributorImpl) {
+            MembershipService processorService = new MembershipService(membershipDistributor, notificator);
+           result =  processorService.executeCreationRules(paymentMembershipActivation.getOrder());
+
+        }
+        assertTrue(result);
 
 
     }
+
 
     @Test
     public void testPayment_MembershipUpgrade() {
-        boolean isUpgradeApplied = false;
-        boolean isNotificationEmailSent = false;
-
+        IMembershipDistributor membershipDistributor = new MembershipDistributorImpl();
+        IEmailNotificator notificator = new EmailNotificatorImpl();
+        boolean result = false;
         Object paymentFactory = PaymentFactory.PaymentFactoryDistribution(paymentMembershipActivation);
-        if (paymentFactory instanceof MembershipDistributor) {
-            isUpgradeApplied = ((MembershipDistributor) paymentFactory).upgradeMembership(paymentMembershipActivation.getOrder());
-            isNotificationEmailSent = ((MembershipDistributor) paymentFactory).notifyOwnerViaEmail("Membership Upgrade", "Your membership is upgraded from now on...");
+        if (paymentFactory instanceof MembershipDistributorImpl) {
+            MembershipService processorService = new MembershipService(membershipDistributor, notificator);
+            result =  processorService.executeUpgradeRules(paymentMembershipActivation.getOrder());
+
         }
-        assertEquals(true, isUpgradeApplied);
-        assertEquals(true, isNotificationEmailSent);
+        assertTrue(result);
+
+
     }
+
 
     @Test
     public void testPayment_VideoLearningToSki() {
-        boolean isVideoAddeToSlip = false;
-        Object paymentFactory = PaymentFactory.PaymentFactoryDistribution(paymentVideoLearningToSki);
-        if (paymentFactory instanceof VideoDistributor) {
-            isVideoAddeToSlip = ((VideoDistributor) paymentFactory).addFirstAidVideoToPackingSlip(new Order());
+        IVideoDistributor videoDistributor = new VideoDistributorImpl();
+        boolean result = false;
 
+        Object paymentFactory = PaymentFactory.PaymentFactoryDistribution(paymentVideoLearningToSki);
+        if (paymentFactory instanceof VideoDistributorImpl) {
+            VideoService service = new VideoService(videoDistributor);
+            result = service.executeRules(paymentVideoLearningToSki.getOrder());
         }
-        assertEquals(true, isVideoAddeToSlip);
+        assertTrue(result);
     }
+
 }
