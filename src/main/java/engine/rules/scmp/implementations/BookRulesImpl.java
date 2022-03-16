@@ -1,9 +1,9 @@
 package engine.rules.scmp.implementations;
 
-import engine.rules.scmp.interfaces.IBookDistributor;
+import engine.rules.scmp.interfaces.IBookRules;
 import engine.rules.scmp.models.Order;
 
-public class BookDistributorImpl implements IBookDistributor {
+public class BookRulesImpl implements IBookRules {
 
     @Override
     public boolean duplicatePackingSlipForRoyalDepartment(Order order) {

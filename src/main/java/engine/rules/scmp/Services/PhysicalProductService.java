@@ -1,25 +1,25 @@
 package engine.rules.scmp.Services;
 
 
-import engine.rules.scmp.interfaces.IPhysicalDistributor;
+import engine.rules.scmp.interfaces.IPhysicalRules;
 import engine.rules.scmp.models.Order;
 
 public class PhysicalProductService {
 
-    private static IPhysicalDistributor physicalDistributor;
+    private static IPhysicalRules physicalDistributor;
 
-    public static IPhysicalDistributor getPhysicalDistributor() {
+    public static IPhysicalRules getPhysicalDistributor() {
         return physicalDistributor;
     }
 
-    public static void setPhysicalDistributor(IPhysicalDistributor physicalDistributor) {
+    public static void setPhysicalDistributor(IPhysicalRules physicalDistributor) {
         PhysicalProductService.physicalDistributor = physicalDistributor;
     }
 
     public PhysicalProductService() {
     }
 
-    public PhysicalProductService(IPhysicalDistributor physicalDistributor) {
+    public PhysicalProductService(IPhysicalRules physicalDistributor) {
         this.physicalDistributor = physicalDistributor;
 
     }

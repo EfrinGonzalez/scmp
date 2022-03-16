@@ -1,5 +1,5 @@
 package engine.rules.scmp.interfaces;
 
-public interface IEmailNotificator {
+public interface IEmailRules {
     boolean notifyOwnerViaEmail(String notificationTitle, String NotificationDescription);
 }

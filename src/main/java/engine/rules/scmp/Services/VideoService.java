@@ -1,21 +1,21 @@
 package engine.rules.scmp.Services;
 
-import engine.rules.scmp.interfaces.IVideoDistributor;
+import engine.rules.scmp.interfaces.IVideoRules;
 import engine.rules.scmp.models.Order;
 
 public class VideoService {
 
-    private static IVideoDistributor videoDistributor;
+    private static IVideoRules videoDistributor;
 
-    public VideoService(IVideoDistributor videoDistributor) {
+    public VideoService(IVideoRules videoDistributor) {
         this.videoDistributor = videoDistributor;
     }
 
-    public static IVideoDistributor getVideoDistributor() {
+    public static IVideoRules getVideoDistributor() {
         return videoDistributor;
     }
 
-    public static void setVideoDistributor(IVideoDistributor videoDistributor) {
+    public static void setVideoDistributor(IVideoRules videoDistributor) {
         VideoService.videoDistributor = videoDistributor;
     }
 

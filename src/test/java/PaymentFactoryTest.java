@@ -19,8 +19,12 @@ public class PaymentFactoryTest {
     static Payment paymentMembershipUpdate;
     static Payment paymentVideoLearningToSki;
 
-    private IPhysicalDistributor physicalDistributor;
-    private IBookDistributor bookDistributor;
+    static IPhysicalRules physicalDistributor;
+    static IBookRules bookDistributor;
+    static IMembershipRules membershipDistributor;
+    static IEmailRules notificator;
+    static IVideoRules videoDistributor;
+
 
     @BeforeClass
     public static void init() {
@@ -30,87 +34,66 @@ public class PaymentFactoryTest {
         paymentMembershipUpdate = new Payment(4, ProductType.MEMBERSHIP_ACTIVATION, new Order());
         paymentVideoLearningToSki = new Payment(5, ProductType.VIDEO_LEARNING_TO_SKI, new Order());
 
-
+        physicalDistributor = new PhysicalRulesImpl();
+        bookDistributor = new BookRulesImpl();
+        membershipDistributor = new MembershipRulesImpl();
+        notificator = new EmailRulesImpl();
+        videoDistributor = new VideoRulesImpl();
 
     }
 
     @Test
     public void testCreationOfPayment_PhysicalProduct() {
-        IPhysicalDistributor physicalDistributor = new PhysicalDistributorImpl();
-        Object paymentFactory = PaymentFactory.PaymentFactoryDistribution(paymentPhysical);
+         Object paymentFactory = PaymentFactory.PaymentFactoryDistribution(paymentPhysical);
          boolean result = false;
-       /* Object paymentFactory = PaymentFactory.PaymentFactoryDistribution(paymentPhysical);*/
-        if (paymentFactory instanceof PhysicalDistributorImpl) {
+         if (paymentFactory instanceof PhysicalRulesImpl) {
             PhysicalProductService processor = new PhysicalProductService(physicalDistributor);
             result = processor.executeRules(paymentPhysical.getOrder());
-
              }
         assertTrue(result);
-
     }
 
     @Test
     public void testCreationOfPayment_Book() {
-         IBookDistributor bookDistributor = new BookDistributorImpl();
-        IPhysicalDistributor physicalDistributor = new PhysicalDistributorImpl();
-
         Object paymentFactory = PaymentFactory.PaymentFactoryDistribution(paymentBook);
         boolean result = false;
-        if (paymentFactory instanceof BookDistributorImpl) {
+        if (paymentFactory instanceof BookRulesImpl) {
             BookService processor = new BookService(physicalDistributor, bookDistributor);
            result =  processor.executeRules(new Order());
         }
-
         assertTrue(result);
-
     }
-
 
     @Test
     public void testPayment_MembershipActivation() {
-        IMembershipDistributor membershipDistributor = new MembershipDistributorImpl();
-        IEmailNotificator notificator = new EmailNotificatorImpl();
         boolean result = false;
         Object paymentFactory = PaymentFactory.PaymentFactoryDistribution(paymentMembershipActivation);
-        if (paymentFactory instanceof MembershipDistributorImpl) {
+        if (paymentFactory instanceof MembershipRulesImpl) {
             MembershipService processorService = new MembershipService(membershipDistributor, notificator);
            result =  processorService.executeCreationRules(paymentMembershipActivation.getOrder());
-
         }
         assertTrue(result);
-
-
     }
-
 
     @Test
     public void testPayment_MembershipUpgrade() {
-        IMembershipDistributor membershipDistributor = new MembershipDistributorImpl();
-        IEmailNotificator notificator = new EmailNotificatorImpl();
         boolean result = false;
         Object paymentFactory = PaymentFactory.PaymentFactoryDistribution(paymentMembershipActivation);
-        if (paymentFactory instanceof MembershipDistributorImpl) {
+        if (paymentFactory instanceof MembershipRulesImpl) {
             MembershipService processorService = new MembershipService(membershipDistributor, notificator);
             result =  processorService.executeUpgradeRules(paymentMembershipActivation.getOrder());
-
         }
         assertTrue(result);
-
-
     }
-
 
     @Test
     public void testPayment_VideoLearningToSki() {
-        IVideoDistributor videoDistributor = new VideoDistributorImpl();
-        boolean result = false;
-
+         boolean result = false;
         Object paymentFactory = PaymentFactory.PaymentFactoryDistribution(paymentVideoLearningToSki);
-        if (paymentFactory instanceof VideoDistributorImpl) {
+        if (paymentFactory instanceof VideoRulesImpl) {
             VideoService service = new VideoService(videoDistributor);
             result = service.executeRules(paymentVideoLearningToSki.getOrder());
         }
         assertTrue(result);
     }
-
 }

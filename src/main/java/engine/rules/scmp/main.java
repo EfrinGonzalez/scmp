@@ -2,22 +2,20 @@ package engine.rules.scmp;
 
 import engine.rules.scmp.Services.BookService;
 import engine.rules.scmp.Services.PhysicalProductService;
-import engine.rules.scmp.implementations.BookDistributorImpl;
-import engine.rules.scmp.interfaces.IBookDistributor;
-import engine.rules.scmp.interfaces.IPhysicalDistributor;
-import engine.rules.scmp.implementations.PhysicalDistributorImpl;
+import engine.rules.scmp.implementations.BookRulesImpl;
+import engine.rules.scmp.interfaces.IBookRules;
+import engine.rules.scmp.interfaces.IPhysicalRules;
+import engine.rules.scmp.implementations.PhysicalRulesImpl;
 import engine.rules.scmp.models.Order;
 
 public class main
 {
-    private static IPhysicalDistributor physicalDistributor;
-    private static IBookDistributor bookDistributor;
+    private static IPhysicalRules physicalDistributor;
+    private static IBookRules bookDistributor;
 
     public static void main(String[] args) {
-        IBookDistributor bookDistributor = new BookDistributorImpl();
-        IPhysicalDistributor physicalDistributor = new PhysicalDistributorImpl();
-
-
+        IBookRules bookDistributor = new BookRulesImpl();
+        IPhysicalRules physicalDistributor = new PhysicalRulesImpl();
 
         BookService a_processor = new BookService(physicalDistributor, bookDistributor);
         a_processor.executeRules(new Order());

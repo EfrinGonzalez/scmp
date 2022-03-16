@@ -1,32 +1,32 @@
 package engine.rules.scmp.Services;
 
-import engine.rules.scmp.interfaces.IEmailNotificator;
-import engine.rules.scmp.interfaces.IMembershipDistributor;
+import engine.rules.scmp.interfaces.IEmailRules;
+import engine.rules.scmp.interfaces.IMembershipRules;
 import engine.rules.scmp.models.Order;
 
 public class MembershipService {
 
-    private static IMembershipDistributor membershipDistributor;
-    private static IEmailNotificator notificator;
+    private static IMembershipRules membershipDistributor;
+    private static IEmailRules notificator;
 
-    public MembershipService(IMembershipDistributor membershipDistributor, IEmailNotificator notificator) {
+    public MembershipService(IMembershipRules membershipDistributor, IEmailRules notificator) {
        this.membershipDistributor = membershipDistributor;
        this.notificator = notificator;
     }
 
-    public static IMembershipDistributor getMembershipDistributor() {
+    public static IMembershipRules getMembershipDistributor() {
         return membershipDistributor;
     }
 
-    public static void setMembershipDistributor(IMembershipDistributor membershipDistributor) {
+    public static void setMembershipDistributor(IMembershipRules membershipDistributor) {
         MembershipService.membershipDistributor = membershipDistributor;
     }
 
-    public static IEmailNotificator getNotificator() {
+    public static IEmailRules getNotificator() {
         return notificator;
     }
 
-    public static void setNotificator(IEmailNotificator notificator) {
+    public static void setNotificator(IEmailRules notificator) {
         MembershipService.notificator = notificator;
     }
 

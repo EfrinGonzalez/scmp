@@ -1,8 +1,8 @@
 package engine.rules.scmp.implementations;
 
-import engine.rules.scmp.interfaces.IEmailNotificator;
+import engine.rules.scmp.interfaces.IEmailRules;
 
-public class EmailNotificatorImpl implements IEmailNotificator {
+public class EmailRulesImpl implements IEmailRules {
 
 
     @Override

@@ -1,16 +1,16 @@
 package engine.rules.scmp.Services;
 
-import engine.rules.scmp.interfaces.IBookDistributor;
-import engine.rules.scmp.interfaces.IPhysicalDistributor;
+import engine.rules.scmp.interfaces.IBookRules;
+import engine.rules.scmp.interfaces.IPhysicalRules;
 import engine.rules.scmp.models.Order;
 
 public class BookService {
 
 
-    private static IPhysicalDistributor physicalDistributor;
-    private static IBookDistributor bookDistributor;
+    private static IPhysicalRules physicalDistributor;
+    private static IBookRules bookDistributor;
 
-    public BookService(IPhysicalDistributor physicalDistributor, IBookDistributor bookDistributor) {
+    public BookService(IPhysicalRules physicalDistributor, IBookRules bookDistributor) {
         this.physicalDistributor = physicalDistributor;
         this.bookDistributor = bookDistributor;
     }
@@ -18,19 +18,19 @@ public class BookService {
     public BookService() {
     }
 
-    public  IPhysicalDistributor getPhysicalDistributor() {
+    public IPhysicalRules getPhysicalDistributor() {
         return physicalDistributor;
     }
 
-    public void setPhysicalDistributor(IPhysicalDistributor physicalDistributor) {
+    public void setPhysicalDistributor(IPhysicalRules physicalDistributor) {
         BookService.physicalDistributor = physicalDistributor;
     }
 
-    public IBookDistributor getBookDistributor() {
+    public IBookRules getBookDistributor() {
         return bookDistributor;
     }
 
-    public  void setBookDistributor(IBookDistributor bookDistributor) {
+    public  void setBookDistributor(IBookRules bookDistributor) {
         BookService.bookDistributor = bookDistributor;
     }
 

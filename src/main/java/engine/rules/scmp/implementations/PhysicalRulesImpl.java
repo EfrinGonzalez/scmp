@@ -1,9 +1,9 @@
 package engine.rules.scmp.implementations;
 
-import engine.rules.scmp.interfaces.IPhysicalDistributor;
+import engine.rules.scmp.interfaces.IPhysicalRules;
 import engine.rules.scmp.models.Order;
 
-public class PhysicalDistributorImpl implements IPhysicalDistributor {
+public class PhysicalRulesImpl implements IPhysicalRules {
 
 
     @Override
