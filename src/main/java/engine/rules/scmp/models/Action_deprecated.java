@@ -1,14 +1,14 @@
 package engine.rules.scmp.models;
 
-import engine.rules.scmp.enums.RuleAction;
+import engine.rules.scmp.enums.RuleAction_deprecated;
 
 
 public class Action_deprecated {
     private int id;
     private String description;
-    private RuleAction action;
+    private RuleAction_deprecated action;
 
-    public Action_deprecated(int id, String description, RuleAction action) {
+    public Action_deprecated(int id, String description, RuleAction_deprecated action) {
         this.id = id;
         this.description = description;
         this.action = action;
@@ -30,11 +30,11 @@ public class Action_deprecated {
         this.description = description;
     }
 
-    public RuleAction getAction() {
+    public RuleAction_deprecated getAction() {
         return action;
     }
 
-    public void setAction(RuleAction action) {
+    public void setAction(RuleAction_deprecated action) {
         this.action = action;
     }
 }

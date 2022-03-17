@@ -47,8 +47,8 @@ public class PaymentFactoryTest {
          Object paymentFactory = PaymentFactory.PaymentFactoryDistribution(paymentPhysical);
          boolean result = false;
          if (paymentFactory instanceof PhysicalRulesImpl) {
-            PhysicalProductService processor = new PhysicalProductService(physicalDistributor);
-            result = processor.executeRules(paymentPhysical.getOrder());
+            PhysicalProductService service = new PhysicalProductService(physicalDistributor);
+            result = service.executeRules(paymentPhysical.getOrder());
              }
         assertTrue(result);
     }
@@ -58,8 +58,8 @@ public class PaymentFactoryTest {
         Object paymentFactory = PaymentFactory.PaymentFactoryDistribution(paymentBook);
         boolean result = false;
         if (paymentFactory instanceof BookRulesImpl) {
-            BookService processor = new BookService(physicalDistributor, bookDistributor);
-           result =  processor.executeRules(new Order());
+            BookService service = new BookService(physicalDistributor, bookDistributor);
+           result =  service.executeRules(new Order());
         }
         assertTrue(result);
     }
@@ -69,8 +69,8 @@ public class PaymentFactoryTest {
         boolean result = false;
         Object paymentFactory = PaymentFactory.PaymentFactoryDistribution(paymentMembershipActivation);
         if (paymentFactory instanceof MembershipRulesImpl) {
-            MembershipService processorService = new MembershipService(membershipDistributor, notificator);
-           result =  processorService.executeCreationRules(paymentMembershipActivation.getOrder());
+            MembershipService service = new MembershipService(membershipDistributor, notificator);
+           result =  service.executeCreationRules(paymentMembershipActivation.getOrder());
         }
         assertTrue(result);
     }
@@ -80,8 +80,8 @@ public class PaymentFactoryTest {
         boolean result = false;
         Object paymentFactory = PaymentFactory.PaymentFactoryDistribution(paymentMembershipActivation);
         if (paymentFactory instanceof MembershipRulesImpl) {
-            MembershipService processorService = new MembershipService(membershipDistributor, notificator);
-            result =  processorService.executeUpgradeRules(paymentMembershipActivation.getOrder());
+            MembershipService service = new MembershipService(membershipDistributor, notificator);
+            result =  service.executeUpgradeRules(paymentMembershipActivation.getOrder());
         }
         assertTrue(result);
     }

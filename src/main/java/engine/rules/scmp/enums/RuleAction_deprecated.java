@@ -1,6 +1,6 @@
 package engine.rules.scmp.enums;
 
-public enum RuleAction {
+public enum RuleAction_deprecated {
     GENERATE_PACKING_SLIP_FOR_SHIPPING,
     DUPLICATE_PACKING_SLIP_FOR_ROYALTY_DEPARTMENT,
     GENERATE_COMMISSION_PAYMENT_TO_AGENT,

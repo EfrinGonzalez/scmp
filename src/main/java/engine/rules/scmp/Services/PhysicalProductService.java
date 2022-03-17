@@ -27,10 +27,12 @@ public class PhysicalProductService {
 
     public boolean executeRules(Order order) {
         System.out.println("Executing rules for physical");
-        boolean result =  this.physicalDistributor.packingSlipForShipping(new Order());
+        boolean result =  this.physicalDistributor.packingSlipForShipping(order);
         boolean result2 =  this.physicalDistributor.giveCommissionPaymentToAgent();
-        System.out.println("Resutl"+ result);;
-        return true;
+        System.out.println("Result for packing: "+ result);
+        System.out.println("Result for comission: "+ result2);
+        if(result==true && result2==true) return true;
+        else return false;
     }
 
 }

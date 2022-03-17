@@ -8,13 +8,13 @@ public class Product {
     private String description;
     private double price;
     private int amount;
-    private ProductType type;
+   // private ProductType type;
     private Rule rule;
 
     public Product() {
     }
 
-    public Product(int id, String name, String description, double price, int amount, ProductType type, Rule rule) {
+    /*public Product(int id, String name, String description, double price, int amount, ProductType type, Rule rule) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -22,7 +22,7 @@ public class Product {
         this.amount = amount;
         this.type = type;
         this.rule = rule;
-    }
+    }*/
 
     public Product(int id, String name, String description, double price, int amount, Rule rule) {
         this.id = id;
@@ -73,13 +73,13 @@ public class Product {
         this.amount = amount;
     }
 
-    public ProductType getType() {
+    /*public ProductType getType() {
         return type;
     }
 
     public void setType(ProductType type) {
         this.type = type;
-    }
+    }*/
 
     public Rule getRule() {
         return rule;
@@ -97,7 +97,7 @@ public class Product {
                 ", description='" + description + '\'' +
                 ", price=" + price +
                 ", amount=" + amount +
-                ", type=" + type +
+                //", type=" + type +
                 ", rule=" + rule +
                 '}';
     }

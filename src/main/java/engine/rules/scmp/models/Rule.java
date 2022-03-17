@@ -1,21 +1,20 @@
 package engine.rules.scmp.models;
 
 
-import engine.rules.scmp.enums.RuleAction;
+import engine.rules.scmp.enums.RuleAction_deprecated;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Rule {
     private int id;
     private String name;
     private String description;
-    private List<RuleAction> actions;
+    private List<RuleAction_deprecated> actions;
 
     public Rule() {
     }
 
-    public Rule(int id, String name, String description, List<RuleAction> actions) {
+    public Rule(int id, String name, String description, List<RuleAction_deprecated> actions) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -46,11 +45,11 @@ public class Rule {
         this.description = description;
     }
 
-    public List<RuleAction> getActions() {
+    public List<RuleAction_deprecated> getActions() {
         return actions;
     }
 
-    public void setActions(List<RuleAction> actions) {
+    public void setActions(List<RuleAction_deprecated> actions) {
         this.actions = actions;
     }
 
