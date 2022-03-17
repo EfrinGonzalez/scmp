@@ -53,8 +53,11 @@ public class PaymentMocksTest {
 
     @Test
     public void testCreationOfPayment_MockPhysicalProduct() {
+        // arrange
         PhysicalProductService service = new PhysicalProductService(this.physicalRulesMock);
+        // act
         boolean result = service.executeRules(new Order());
+        // assert
         assertEquals(true, result);
     }
 

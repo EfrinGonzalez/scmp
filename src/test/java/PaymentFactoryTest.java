@@ -59,7 +59,7 @@ public class PaymentFactoryTest {
         boolean result = false;
         if (paymentFactory instanceof BookRulesImpl) {
             BookService service = new BookService(physicalDistributor, bookDistributor);
-           result =  service.executeRules(new Order());
+           result =  service.executeRules(paymentBook.getOrder());
         }
         assertTrue(result);
     }
