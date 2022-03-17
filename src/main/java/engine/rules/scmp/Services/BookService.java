@@ -15,33 +15,13 @@ public class BookService {
         this.bookDistributor = bookDistributor;
     }
 
-    public BookService() {
-    }
-
-    public IPhysicalRules getPhysicalDistributor() {
-        return physicalDistributor;
-    }
-
-    public void setPhysicalDistributor(IPhysicalRules physicalDistributor) {
-        BookService.physicalDistributor = physicalDistributor;
-    }
-
-    public IBookRules getBookDistributor() {
-        return bookDistributor;
-    }
-
-    public  void setBookDistributor(IBookRules bookDistributor) {
-        BookService.bookDistributor = bookDistributor;
-    }
-
 
    public boolean executeRules(Order order) {
-      // this.physicalDistributor.giveCommissionPaymentToAgent();
        System.out.println("Executing rules for book");
        this.bookDistributor.duplicatePackingSlipForRoyalDepartment(new Order());
        this.physicalDistributor.giveCommissionPaymentToAgent();
-       //System.out.println("Resutl"+ result);;
-       return true;
+
+      return true;
     }
 
 

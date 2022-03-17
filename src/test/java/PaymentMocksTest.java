@@ -1,5 +1,7 @@
+import engine.rules.scmp.Services.BookService;
+import engine.rules.scmp.Services.MembershipService;
 import engine.rules.scmp.Services.PhysicalProductService;
-import engine.rules.scmp.implementations.*;
+import engine.rules.scmp.Services.VideoService;
 import engine.rules.scmp.interfaces.*;
 import engine.rules.scmp.models.*;
 import org.junit.BeforeClass;
@@ -7,49 +9,80 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+
 
 public class PaymentMocksTest {
-    static Payment paymentPhysical;
-    static Payment paymentBook;
-    static Payment paymentMembershipActivation;
-    static Payment paymentMembershipUpdate;
-    static Payment paymentVideoLearningToSki;
 
-    static IPhysicalRules physicalDistributorMock;
-    static IBookRules bookDistributor;
-    static IMembershipRules membershipDistributor;
-    static IEmailRules notificator;
-    static IVideoRules videoDistributor;
-    static boolean rulesExecuted = false;
-    static boolean packingSent = false;
-    static boolean commissionGiven = false;
+    private static IPhysicalRules physicalRulesMock;
+    private static IBookRules bookRulesMock;
+    static IMembershipRules membershipRulesMock;
+    static IEmailRules notificatorMock;
+    static IVideoRules videoRulesMock;
 
 
     @BeforeClass
     public static void init() {
 
-        packingSent = true;
-        commissionGiven = true;
-        rulesExecuted = true;
-        physicalDistributorMock = Mockito.mock(IPhysicalRules.class);
-        Mockito.when(physicalDistributorMock.packingSlipForShipping(new Order())).thenReturn(packingSent);
-        Mockito.when(physicalDistributorMock.giveCommissionPaymentToAgent()).thenReturn(commissionGiven);
+        physicalRulesMock = Mockito.mock(IPhysicalRules.class);
+        Mockito.when(physicalRulesMock.packingSlipForShipping(new Order()))
+                .thenReturn(true);
 
-        bookDistributor = new BookRulesImpl();
-        membershipDistributor = new MembershipRulesImpl();
-        notificator = new EmailRulesImpl();
-        videoDistributor = new VideoRulesImpl();
+       Mockito.when(physicalRulesMock.giveCommissionPaymentToAgent())
+               .thenReturn(true);
+
+        bookRulesMock = Mockito.mock(IBookRules.class);
+        Mockito.when(bookRulesMock.duplicatePackingSlipForRoyalDepartment(new Order()))
+                .thenReturn(true);
+
+        membershipRulesMock = Mockito.mock(IMembershipRules.class);
+        Mockito.when((membershipRulesMock.activateMembership(new Order())))
+                .thenReturn(true);
+
+        membershipRulesMock = Mockito.mock(IMembershipRules.class);
+        Mockito.when((membershipRulesMock.upgradeMembership(new Order())))
+                .thenReturn(true);
+
+        notificatorMock = Mockito.mock(IEmailRules.class);
+        Mockito.when((notificatorMock.notifyOwnerViaEmail("notification", "owner")))
+                .thenReturn(true);
+
+        videoRulesMock = Mockito.mock(IVideoRules.class);
+        Mockito.when(videoRulesMock.addFirstAidVideoToPackingSlip(new Order()))
+                .thenReturn(true);
     }
 
-        @Test
-        public void testCreationOfPayment_PhysicalProduct() {
-            PhysicalProductService service = new PhysicalProductService(this.physicalDistributorMock);
+    @Test
+    public void testCreationOfPayment_MockPhysicalProduct() {
+        PhysicalProductService service = new PhysicalProductService(this.physicalRulesMock);
+        boolean result = service.executeRules(new Order());
+        assertEquals(true, result);
+    }
 
-            boolean result = service.executeRules(new Order());
-            System.out.println("REsult of executing the rules in service: "+result);
-            assertEquals(rulesExecuted, result);
+    @Test
+    public void testCreationOfPayment_MockBook() {
+        BookService service = new BookService(this.physicalRulesMock,this.bookRulesMock);
+        boolean result = service.executeRules(new Order());
+        assertEquals(true, result);
+    }
 
-        }
+    @Test
+    public void testCreationOfPayment_MockMembershipActivation() {
+        MembershipService service = new MembershipService(this.membershipRulesMock, this.notificatorMock);
+        boolean result = service.executeCreationRules(new Order());
+        assertEquals(true, result);
+    }
 
+    @Test
+    public void testCreationOfPayment_MockMembershipUpgrade() {
+        MembershipService service = new MembershipService(this.membershipRulesMock, this.notificatorMock);
+        boolean result = service.executeUpgradeRules(new Order());
+        assertEquals(true, result);
+    }
+
+    @Test
+    public void testPayment_MockVideoLearningToSki() {
+        VideoService service = new VideoService(this.videoRulesMock);
+        boolean result = service.executeRules(new Order());
+        assertEquals(true, result);
+    }
 }

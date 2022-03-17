@@ -11,13 +11,6 @@ public class VideoService {
         this.videoDistributor = videoDistributor;
     }
 
-    public static IVideoRules getVideoDistributor() {
-        return videoDistributor;
-    }
-
-    public static void setVideoDistributor(IVideoRules videoDistributor) {
-        VideoService.videoDistributor = videoDistributor;
-    }
 
     public boolean executeRules(Order order) {
         System.out.println("Executing rules for Video");

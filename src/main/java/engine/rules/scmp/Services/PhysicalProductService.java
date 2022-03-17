@@ -6,33 +6,18 @@ import engine.rules.scmp.models.Order;
 
 public class PhysicalProductService {
 
-    private static IPhysicalRules physicalDistributor;
+    private static IPhysicalRules physicalRules;
 
-    public static IPhysicalRules getPhysicalDistributor() {
-        return physicalDistributor;
+    public PhysicalProductService(IPhysicalRules physicalRules) {
+        this.physicalRules = physicalRules;
     }
-
-    public static void setPhysicalDistributor(IPhysicalRules physicalDistributor) {
-        PhysicalProductService.physicalDistributor = physicalDistributor;
-    }
-
-    public PhysicalProductService() {
-    }
-
-    public PhysicalProductService(IPhysicalRules physicalDistributor) {
-        this.physicalDistributor = physicalDistributor;
-
-    }
-
 
     public boolean executeRules(Order order) {
         System.out.println("Executing rules for physical");
-        boolean result =  this.physicalDistributor.packingSlipForShipping(order);
-        boolean result2 =  this.physicalDistributor.giveCommissionPaymentToAgent();
-        System.out.println("Result for packing: "+ result);
-        System.out.println("Result for comission: "+ result2);
-        if(result==true && result2==true) return true;
-        else return false;
+        this.physicalRules.packingSlipForShipping(order);
+        this.physicalRules.giveCommissionPaymentToAgent();
+
+        return true;
     }
 
 }
