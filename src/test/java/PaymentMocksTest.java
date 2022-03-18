@@ -79,14 +79,14 @@ public class PaymentMocksTest {
     @Test
     public void testCreationOfPayment_MockPhysicalProduct() {
         PhysicalProductService service = new PhysicalProductService(this.physicalRulesMock);
-        boolean result = service.executeRules(paymentPhysical);
+        boolean result = service.executePhysicalRules(paymentPhysical);
         assertEquals(true, result);
     }
 
     @Test
     public void testCreationOfPayment_MockBook() {
         BookService service = new BookService(this.physicalRulesMock,this.bookRulesMock);
-        boolean result = service.executeRules(paymentBook);
+        boolean result = service.executeBookRules(paymentBook);
         assertEquals(true, result);
     }
 
@@ -107,7 +107,7 @@ public class PaymentMocksTest {
     @Test
     public void testPayment_MockVideoLearningToSki() {
         VideoService service = new VideoService(this.videoRulesMock);
-        boolean result = service.executeRules(paymentVideoLearningToSki);
+        boolean result = service.executeVideoRules(paymentVideoLearningToSki);
         assertEquals(true, result);
     }
 }

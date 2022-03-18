@@ -48,7 +48,7 @@ public class PaymentFactoryTest {
          boolean result = false;
          if (paymentFactory instanceof PhysicalRulesImpl) {
             PhysicalProductService service = new PhysicalProductService(physicalDistributor);
-            result = service.executeRules(paymentPhysical);
+            result = service.executePhysicalRules(paymentPhysical);
              }
         assertTrue(result);
     }
@@ -59,7 +59,7 @@ public class PaymentFactoryTest {
         boolean result = false;
         if (paymentFactory instanceof BookRulesImpl) {
             BookService service = new BookService(physicalDistributor, bookDistributor);
-           result =  service.executeRules(paymentBook);
+           result =  service.executeBookRules(paymentBook);
         }
         assertTrue(result);
     }
@@ -92,7 +92,7 @@ public class PaymentFactoryTest {
         Object paymentFactory = PaymentFactory.PaymentFactoryDistribution(paymentVideoLearningToSki);
         if (paymentFactory instanceof VideoRulesImpl) {
             VideoService service = new VideoService(videoDistributor);
-            result = service.executeRules(paymentVideoLearningToSki);
+            result = service.executeVideoRules(paymentVideoLearningToSki);
         }
         assertTrue(result);
     }

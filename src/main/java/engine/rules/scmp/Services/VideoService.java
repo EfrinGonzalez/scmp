@@ -12,7 +12,7 @@ public class VideoService {
     }
 
 
-    public boolean executeRules(Payment payment) {
+    public boolean executeVideoRules(Payment payment) {
         System.out.println("Executing rules for Video");
        this.videoDistributor.addFirstAidVideoToPackingSlip(payment);
 
