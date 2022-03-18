@@ -2,7 +2,7 @@ package engine.rules.scmp.Services;
 
 
 import engine.rules.scmp.interfaces.IPhysicalRules;
-import engine.rules.scmp.models.Order;
+import engine.rules.scmp.models.Payment;
 
 public class PhysicalProductService {
 
@@ -12,10 +12,10 @@ public class PhysicalProductService {
         this.physicalRules = physicalRules;
     }
 
-    public boolean executeRules(Order order) {
+    public boolean executeRules(Payment payment) {
         System.out.println("Executing rules for physical");
-        this.physicalRules.packingSlipForShipping(order);
-        this.physicalRules.giveCommissionPaymentToAgent();
+        this.physicalRules.packingSlipForShipping(payment);
+        this.physicalRules.giveCommissionPaymentToAgent(payment);
 
         return true;
     }

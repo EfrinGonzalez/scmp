@@ -31,7 +31,7 @@ public class PaymentFactoryTest {
         paymentPhysical = new Payment(1, ProductType.PHYSICAL_PRODUCT, new Order());
         paymentBook = new Payment(2, ProductType.BOOK, new Order());
         paymentMembershipActivation = new Payment(3, ProductType.MEMBERSHIP_ACTIVATION, new Order());
-        paymentMembershipUpdate = new Payment(4, ProductType.MEMBERSHIP_ACTIVATION, new Order());
+        paymentMembershipUpdate = new Payment(4, ProductType.MEMBERSHIP_UPGRADE, new Order());
         paymentVideoLearningToSki = new Payment(5, ProductType.VIDEO_LEARNING_TO_SKI, new Order());
 
         physicalDistributor = new PhysicalRulesImpl();
@@ -48,7 +48,7 @@ public class PaymentFactoryTest {
          boolean result = false;
          if (paymentFactory instanceof PhysicalRulesImpl) {
             PhysicalProductService service = new PhysicalProductService(physicalDistributor);
-            result = service.executeRules(paymentPhysical.getOrder());
+            result = service.executeRules(paymentPhysical);
              }
         assertTrue(result);
     }
@@ -59,7 +59,7 @@ public class PaymentFactoryTest {
         boolean result = false;
         if (paymentFactory instanceof BookRulesImpl) {
             BookService service = new BookService(physicalDistributor, bookDistributor);
-           result =  service.executeRules(paymentBook.getOrder());
+           result =  service.executeRules(paymentBook);
         }
         assertTrue(result);
     }
@@ -70,7 +70,7 @@ public class PaymentFactoryTest {
         Object paymentFactory = PaymentFactory.PaymentFactoryDistribution(paymentMembershipActivation);
         if (paymentFactory instanceof MembershipRulesImpl) {
             MembershipService service = new MembershipService(membershipDistributor, notificator);
-           result =  service.executeCreationRules(paymentMembershipActivation.getOrder());
+           result =  service.executeCreationRules(paymentMembershipActivation);
         }
         assertTrue(result);
     }
@@ -81,7 +81,7 @@ public class PaymentFactoryTest {
         Object paymentFactory = PaymentFactory.PaymentFactoryDistribution(paymentMembershipActivation);
         if (paymentFactory instanceof MembershipRulesImpl) {
             MembershipService service = new MembershipService(membershipDistributor, notificator);
-            result =  service.executeUpgradeRules(paymentMembershipActivation.getOrder());
+            result =  service.executeUpgradeRules(paymentMembershipActivation);
         }
         assertTrue(result);
     }
@@ -92,7 +92,7 @@ public class PaymentFactoryTest {
         Object paymentFactory = PaymentFactory.PaymentFactoryDistribution(paymentVideoLearningToSki);
         if (paymentFactory instanceof VideoRulesImpl) {
             VideoService service = new VideoService(videoDistributor);
-            result = service.executeRules(paymentVideoLearningToSki.getOrder());
+            result = service.executeRules(paymentVideoLearningToSki);
         }
         assertTrue(result);
     }

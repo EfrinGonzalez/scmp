@@ -3,6 +3,7 @@ package engine.rules.scmp.Services;
 import engine.rules.scmp.interfaces.IBookRules;
 import engine.rules.scmp.interfaces.IPhysicalRules;
 import engine.rules.scmp.models.Order;
+import engine.rules.scmp.models.Payment;
 
 public class BookService {
 
@@ -16,12 +17,11 @@ public class BookService {
     }
 
 
-   public boolean executeRules(Order order) {
+   public boolean executeRules(Payment payment) {
        System.out.println("Executing rules for book");
-       this.bookDistributor.duplicatePackingSlipForRoyalDepartment(new Order());
-       this.physicalDistributor.giveCommissionPaymentToAgent();
-
-      return true;
+       this.bookDistributor.duplicatePackingSlipForRoyalDepartment(payment);
+       this.physicalDistributor.giveCommissionPaymentToAgent(payment);
+        return true;
     }
 
 

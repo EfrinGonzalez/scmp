@@ -1,7 +1,7 @@
 package engine.rules.scmp.Services;
 
 import engine.rules.scmp.interfaces.IVideoRules;
-import engine.rules.scmp.models.Order;
+import engine.rules.scmp.models.Payment;
 
 public class VideoService {
 
@@ -12,9 +12,9 @@ public class VideoService {
     }
 
 
-    public boolean executeRules(Order order) {
+    public boolean executeRules(Payment payment) {
         System.out.println("Executing rules for Video");
-       this.videoDistributor.addFirstAidVideoToPackingSlip(order);
+       this.videoDistributor.addFirstAidVideoToPackingSlip(payment);
 
         return true;
     }

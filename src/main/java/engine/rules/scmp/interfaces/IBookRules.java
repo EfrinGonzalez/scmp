@@ -1,7 +1,7 @@
 package engine.rules.scmp.interfaces;
 
-import engine.rules.scmp.models.Order;
+import engine.rules.scmp.models.Payment;
 
 public interface IBookRules {
-    boolean duplicatePackingSlipForRoyalDepartment(Order order);
+    boolean duplicatePackingSlipForRoyalDepartment(Payment payment);
 }
