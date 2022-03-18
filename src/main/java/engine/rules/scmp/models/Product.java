@@ -1,28 +1,15 @@
 package engine.rules.scmp.models;
 
-import engine.rules.scmp.enums.ProductType;
-
 public class Product {
     private int id;
     private String name;
     private String description;
     private double price;
     private int amount;
-   // private ProductType type;
     private Rule rule;
 
     public Product() {
     }
-
-    /*public Product(int id, String name, String description, double price, int amount, ProductType type, Rule rule) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.price = price;
-        this.amount = amount;
-        this.type = type;
-        this.rule = rule;
-    }*/
 
     public Product(int id, String name, String description, double price, int amount, Rule rule) {
         this.id = id;
@@ -73,14 +60,6 @@ public class Product {
         this.amount = amount;
     }
 
-    /*public ProductType getType() {
-        return type;
-    }
-
-    public void setType(ProductType type) {
-        this.type = type;
-    }*/
-
     public Rule getRule() {
         return rule;
     }
@@ -97,7 +76,6 @@ public class Product {
                 ", description='" + description + '\'' +
                 ", price=" + price +
                 ", amount=" + amount +
-                //", type=" + type +
                 ", rule=" + rule +
                 '}';
     }
