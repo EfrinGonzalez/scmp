@@ -44,7 +44,7 @@ public class PaymentFactoryTest {
 
     @Test
     public void testCreationOfPayment_PhysicalProduct() {
-         Object paymentFactory = PaymentFactory.PaymentFactoryDistribution(paymentPhysical);
+         Object paymentFactory = PaymentFactory.create(paymentPhysical);
          boolean result = false;
          if (paymentFactory instanceof PhysicalRulesImpl) {
             PhysicalProductService service = new PhysicalProductService(physicalDistributor);
@@ -55,7 +55,7 @@ public class PaymentFactoryTest {
 
     @Test
     public void testCreationOfPayment_Book() {
-        Object paymentFactory = PaymentFactory.PaymentFactoryDistribution(paymentBook);
+        Object paymentFactory = PaymentFactory.create(paymentBook);
         boolean result = false;
         if (paymentFactory instanceof BookRulesImpl) {
             BookService service = new BookService(physicalDistributor, bookDistributor);
@@ -67,7 +67,7 @@ public class PaymentFactoryTest {
     @Test
     public void testPayment_MembershipActivation() {
         boolean result = false;
-        Object paymentFactory = PaymentFactory.PaymentFactoryDistribution(paymentMembershipActivation);
+        Object paymentFactory = PaymentFactory.create(paymentMembershipActivation);
         if (paymentFactory instanceof MembershipRulesImpl) {
             MembershipService service = new MembershipService(membershipDistributor, notificator);
            result =  service.executeCreationRules(paymentMembershipActivation);
@@ -78,7 +78,7 @@ public class PaymentFactoryTest {
     @Test
     public void testPayment_MembershipUpgrade() {
         boolean result = false;
-        Object paymentFactory = PaymentFactory.PaymentFactoryDistribution(paymentMembershipActivation);
+        Object paymentFactory = PaymentFactory.create(paymentMembershipActivation);
         if (paymentFactory instanceof MembershipRulesImpl) {
             MembershipService service = new MembershipService(membershipDistributor, notificator);
             result =  service.executeUpgradeRules(paymentMembershipActivation);
@@ -89,7 +89,7 @@ public class PaymentFactoryTest {
     @Test
     public void testPayment_VideoLearningToSki() {
          boolean result = false;
-        Object paymentFactory = PaymentFactory.PaymentFactoryDistribution(paymentVideoLearningToSki);
+        Object paymentFactory = PaymentFactory.create(paymentVideoLearningToSki);
         if (paymentFactory instanceof VideoRulesImpl) {
             VideoService service = new VideoService(videoDistributor);
             result = service.executeVideoRules(paymentVideoLearningToSki);

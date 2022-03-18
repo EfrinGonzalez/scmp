@@ -9,7 +9,7 @@ import engine.rules.scmp.models.Payment;
 
 public class PaymentFactory {
 
-    public static Object PaymentFactoryDistribution(Payment payment){
+    public static Object create(Payment payment){
         switch (payment.getType()) {
 
             case PHYSICAL_PRODUCT:
