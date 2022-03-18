@@ -12,7 +12,7 @@ public class PhysicalProductService {
         this.physicalRules = physicalRules;
     }
 
-    public boolean executeRules(Payment payment) {
+    public boolean executePhysicalRules(Payment payment) {
         System.out.println("Executing rules for physical");
         this.physicalRules.packingSlipForShipping(payment);
         this.physicalRules.giveCommissionPaymentToAgent(payment);
